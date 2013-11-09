@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+<!--  
+	A super lightweight web tooltip based on jQuery without complex parameter.
+	authored by MicroMao(qsyxhbg@gmail.com)
+-->
+<style type="text/css">
+/* tooltip依赖样式 */
+	.tooltip-dn{display: none;}
+	.tooltip{
+		position: absolute;
+		border-radius: 1px;padding: 8px 16px;max-width: 180px;
+		opacity: .8;filter:alpha(opacity=80);
+		color: #FFF;text-align: center;font-size: 12px;
+		-webkit-transition: opacity .8s;
+		   -moz-transition: opacity .8s;
+		    -ms-transition: opacity .8s;
+			 -o-transition: opacity .8s;
+				transition: opacity .8s;
+		*background-color: #000;background-color: #000\9;background-color: rgba(0,0,0,.8);
+	}
+	.tooltip:after,.tooltip:before{
+		display:block;width:0;height:0;content:"";position:absolute;
+		border:7px solid transparent;border-top-color: rgba(0,0,0,.54);top: 100%;left: 50%;margin-left: -7px;
+	}
+/* end依赖样式 */
+
+/* 测试用样式 */
+	.main{width: 480px;margin: 100px auto;position: relative;}
+	.fr{float: right;}
+	.cb{display: block;width: 100px;height: 100px;background-color: #4bf;}
+	.abolute{position: absolute;left: 150px;top: 0;}
+	.fixed{position: fixed;right: 100px;top: 20%;}
+	.ml50{margin-left: 50px;}
+	.mt50{margin-top: 50px;}
+	.border{border-left: 40px solid red;border-top: 80px solid red;}
+</style>
+<div class="main">
+	<div class="fr cb" data-tip="浮动元素"></div>
+	<div class="static cb" data-tip="static元素"></div>
+	<div class="abolute cb" data-tip="absolute元素"></div>
+	<div class="fixed cb" data-tip="fixed元素"></div><br>
+	<div class="mt50 ml50 cb" data-tip="带margin的元素"></div><br>
+	<div class="border cb" data-tip="带border的元素"></div>
+</div>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+<script type="text/javascript">
+	$('[data-tip]').hover(function(){
+		var _val = $(this).data('tip'),_pos = $(this).offset(),
+			_tw = $(this).outerWidth(),_th = $(this).outerHeight();
+		if( $('#tooltip').length != 0 )
+			$('#tooltip').text(_val);
+		else
+			$('<div class="tooltip tooltip-dn" id="tooltip">'+_val+'</div>').appendTo($('body'));
+		var _w = $('#tooltip').outerWidth(),_h = $('#tooltip').outerHeight();
+		$('#tooltip').css({'left':_pos.left+(_tw-_w)/2,'top':_pos.top-_h-14,opacity:1}).removeClass('tooltip-dn');
+	},function(){
+		$('#tooltip').css({'opacity':.8}).addClass('tooltip-dn');
+	});
+</script>
+</body>
+</html>
